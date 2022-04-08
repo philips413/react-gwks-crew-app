@@ -20,7 +20,7 @@ const MainPage = (props: PageTagProps) => {
     useEffect(() => {
         const accessToken = StorageUtil.local.getAccessToken()
         if (accessToken == null) {
-            navigate(`/login/`);
+            navigate(`/login`);
         }
 
         const fetchUserData = async () => {
@@ -31,7 +31,7 @@ const MainPage = (props: PageTagProps) => {
     }, []);
 
     const doJoin = () => {
-        navigate("/join/");
+        navigate("/join");
     }
 
     return (
