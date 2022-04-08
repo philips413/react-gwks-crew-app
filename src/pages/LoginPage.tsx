@@ -16,10 +16,10 @@ const LoginPage = (props: PageTagProps) => {
         const accessToken = StorageUtil.local.getAccessToken();
         const status = StorageUtil.local.getItem("status");
         if (status === "new") {
-            navigate("/join");
+            navigate("/join/");
         }
         if (accessToken != null) {
-            navigate("/mypage");
+            navigate("/mypage/");
         }
     });
     return (

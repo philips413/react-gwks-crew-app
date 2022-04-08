@@ -112,15 +112,15 @@ function App() {
                     <section className={"mainWrapper"}>
                         <Routes>
                             <Route path={"/"} element={<HomePage title="광성마을 크루앱" />} />
-                            <Route path={"/list"} element={<CrewListPage title="크루 회원" />} />
-                            <Route path={"/login"} element={<LoginPage title={"로그인"} />} />
-                            <Route path={"/join"} element={<SignUpPage title={"회원가입"} />} />
-                            <Route path={"/mypage/:userid"} element={<MyInfoPage title={"내 정보 수정"} />} />
-                            <Route path={"/mypage"} element={<MyPage title={"내 정보"} />} />
-                            <Route path={"/login/kakao"} element={<KakaoLoginPage title={"카카오 로그인 페이지"} />} />
-                            <Route path={"/login/kakao/callback"} element={<KakaoRedirectPage title={"카카오 리다이렉트 페이지"} />} />
-                            <Route path={"/test"} element={<Test />} />
-                            <Route path={"/crew_detail/:id"} element={<CrewDetailPage title={"크루 상세설명"} />} />
+                            <Route path={"/list/"} element={<CrewListPage title="크루 회원" />} />
+                            <Route path={"/login/"} element={<LoginPage title={"로그인"} />} />
+                            <Route path={"/join/"} element={<SignUpPage title={"회원가입"} />} />
+                            <Route path={"/mypage/:userid/"} element={<MyInfoPage title={"내 정보 수정"} />} />
+                            <Route path={"/mypage/"} element={<MyPage title={"내 정보"} />} />
+                            <Route path={"/login/kakao/"} element={<KakaoLoginPage title={"카카오 로그인 페이지"} />} />
+                            <Route path={"/login/kakao/callback/"} element={<KakaoRedirectPage title={"카카오 리다이렉트 페이지"} />} />
+                            <Route path={"/test/"} element={<Test />} />
+                            <Route path={"/crew_detail/:id/"} element={<CrewDetailPage title={"크루 상세설명"} />} />
                         </Routes>
                         <footer className={"mainFooter"}>
                             <MainButtonGroup>
@@ -128,11 +128,11 @@ function App() {
                                     <TiHome />
                                     <p>HOME</p>
                                 </Link>
-                                <Link to="/list">
+                                <Link to="/list/">
                                     <TiThMenu />
                                     <p>LIST</p>
                                 </Link>
-                                <Link to="/mypage">
+                                <Link to="/mypage/">
                                     <TiUserOutline />
                                     <p>MYPAGE</p>
                                 </Link>

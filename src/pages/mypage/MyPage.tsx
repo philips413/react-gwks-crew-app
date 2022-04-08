@@ -20,7 +20,7 @@ const MainPage = (props: PageTagProps) => {
     useEffect(() => {
         const accessToken = StorageUtil.local.getAccessToken()
         if (accessToken == null) {
-            navigate(`/login`);
+            navigate(`/login/`);
         }
 
         const fetchUserData = async () => {
@@ -31,7 +31,7 @@ const MainPage = (props: PageTagProps) => {
     }, []);
 
     const doJoin = () => {
-        navigate("/join");
+        navigate("/join/");
     }
 
     return (
@@ -67,7 +67,7 @@ const MainPage = (props: PageTagProps) => {
                                 <b>소속 공동체</b> : {FindCommunity(userInfo.community)}
                             </CardText>
                             <div style={{"textAlign": "center", "marginTop": "40px"}}>
-                                <Button onClick={ e => navigate(`/mypage/${userId}`)}>
+                                <Button onClick={ e => navigate(`/mypage/${userId}/`)}>
                                     내 정보 수정
                                 </Button>
                             </div>
