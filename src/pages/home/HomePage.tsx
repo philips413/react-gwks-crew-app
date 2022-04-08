@@ -6,6 +6,7 @@ import React, {useEffect, useState} from "react";
 import {Card, CardBody, CardSubtitle, CardText, CardTitle, Col, Row} from "reactstrap";
 import NoImage from '../../assets/img/no-image-found-360x250-1-300x208.png'
 import {Link} from "react-router-dom";
+import CommunityBadgeList from "../../components/CommunityBadgeList";
 
 const CrewCart = styled(Card)`
   margin-bottom: 10px;
@@ -53,6 +54,7 @@ const GetCardList = (list: any) => {
                             {item.meeting_type ? (<HashSpan color={"success"}>#{item.meeting_type}</HashSpan>) : ''}&nbsp;
                             {item.member_limit ? (<HashSpan color={"success"}>#선착순{item.member_limit}명</HashSpan>) : ''}
                         </CardText>
+                        <p>{CommunityBadgeList(item.community_limit)}</p>
                         <Link to={`/crew_detail/${item.id}`}>
                             자세히 보기
                         </Link>

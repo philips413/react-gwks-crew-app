@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Button, Card, CardBody, CardHeader, CardText, CardTitle} from "reactstrap";
+import {Badge, Button, Card, CardBody, CardFooter, CardHeader, CardText, CardTitle} from "reactstrap";
 import Header from "../../layout/Header";
 import {PageTagProps} from "../interface/PageInterface";
 import NoImage from '../../assets/img/no-image-found-360x250-1-300x208.png';
@@ -7,6 +7,8 @@ import {getCrewDetail} from "../../api/CrewApi";
 import React, {useEffect, useState} from "react";
 import {useParams} from 'react-router';
 import {TiUserAdd} from 'react-icons/ti';
+import { CommunityCode } from '../../enum/OperationCode';
+import CommunityBadgeList from '../../components/CommunityBadgeList';
 
 const CrewTitle = styled.div`
     width: 100%;
@@ -42,10 +44,11 @@ const CrewMemberList = styled.div`
 // }
 //
 
-
 const CrewDetailPage = (props: PageTagProps) => {
     const params = useParams();
-    const [userData, setUserData] = useState({} as any);
+    const [userData, setUserData] = useState({
+        community_limit: []
+    } as any);
     useEffect(()  => {
         const fetchData = async () => {
             const data = await getCrewDetail(Number(params.id));
@@ -78,6 +81,9 @@ const CrewDetailPage = (props: PageTagProps) => {
                         <CardText dangerouslySetInnerHTML={{__html : userData.description}}>
                         </CardText>
                     </CardBody>
+                    <CardFooter>
+                        {CommunityBadgeList(userData.community_limit)}
+                    </CardFooter>
                 </Card>
                 <br />
                 <Card>
