@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 function loginWithKakao() {
-    window.open(`/login/kakao`, "kakaoLogin",  "width=500, height=800");
+    window.open(`/login/kakao/`, "kakaoLogin",  "width=500, height=800");
 }
 
 const LoginPage = (props: PageTagProps) => {
