@@ -10,7 +10,7 @@ async function doTokenInfo() {
     const result = await axiosPostRequest("https://kauth.kakao.com/oauth/token",{
         grant_type: "authorization_code",
         client_id: "5c7fe0d39ddd530bb8c5588ef3c1452a",
-        redirect_uri: "http://localhost:3000/login/kakao/callback/",
+        redirect_uri: "http://52.78.188.142/login/kakao/callback/",
         code: code,
         client_secret: "IwKQJvbH6UN40GOyG6VWSCKrPVBcIUic",
     });

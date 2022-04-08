@@ -4,7 +4,7 @@ const KakaoLogin = (props: PageTagProps) => {
     // @ts-ignore
     const { Kakao } = globalThis;
     Kakao.Auth.authorize({
-        redirectUri: 'http://localhost:3000/login/kakao/callback/'
+        redirectUri: 'http://52.78.188.142/login/kakao/callback/'
     })
     Kakao.Auth.login({
         success: function(authObj: any) {
