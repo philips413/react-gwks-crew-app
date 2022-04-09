@@ -1,7 +1,7 @@
 import jwt_decode, { JwtPayload } from "jwt-decode";
 export const StorageUtil = {
     session: {
-        getItem: (key: string) => sessionStorage.getItem(key),
+        getItem: (key: string) => sessionStorage.getItem(key) || '',
         removeItem: (key: string) => sessionStorage.removeItem(key),
         setItem: (key: string, value: string) => sessionStorage.setItem(key, value),
         saveLandingUrl: () => {
@@ -9,7 +9,7 @@ export const StorageUtil = {
         }
     },
     local: {
-        getItem: (key: string) => localStorage.getItem(key),
+        getItem: (key: string) => localStorage.getItem(key) || '',
         setItem: (key: string, value: string) => localStorage.setItem(key, value),
         getAccessToken: () => localStorage.getItem("access_token"),
         getId: ():string => {

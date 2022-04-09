@@ -128,11 +128,11 @@ function App() {
                                     <TiHome />
                                     <p>HOME</p>
                                 </Link>
-                                <Link to="/list">
+                                <Link to="/list/">
                                     <TiThMenu />
                                     <p>LIST</p>
                                 </Link>
-                                <Link to="/mypage">
+                                <Link to="/mypage/">
                                     <TiUserOutline />
                                     <p>MYPAGE</p>
                                 </Link>

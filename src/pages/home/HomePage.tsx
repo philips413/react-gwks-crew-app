@@ -5,7 +5,7 @@ import {getCrewList} from "../../api/CrewApi";
 import React, {useEffect, useState} from "react";
 import {Badge, Card, CardBody, CardSubtitle, CardText, CardTitle, Col, Row} from "reactstrap";
 import NoImage from '../../assets/img/no-image-found-360x250-1-300x208.png'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import CommunityBadgeList from "../../components/CommunityBadgeList";
 import {StorageUtil} from "../../config/BrowserUtil";
 
@@ -23,6 +23,7 @@ const HashSpan = styled.span`
 `
 
 const GetCardList = (list: any) => {
+    let navigate = useNavigate();
     const vaildCrewMember = (members: []) => {
         const userid = StorageUtil.local.getId();
         const filterMembers = members.filter(item => item === userid);
@@ -31,6 +32,10 @@ const GetCardList = (list: any) => {
                 <Badge color={"success"} pill>참여중..</Badge>
             )
         }
+    }
+
+    const goLink = (id: number) => {
+        navigate(`/crew_detail/${id}`);
     }
 
     return list.map((item: any) => {
@@ -47,15 +52,20 @@ const GetCardList = (list: any) => {
                                     alt={""}
                                     src={item.image_thumbnail || NoImage}
                                     style={{"width": "80px", "height": "80px"}}
+                                    onClick={() => goLink(item.id)}
                                 />
                             </Col>
                             <Col xs={9}>
-                                <CardTitle tag="h5">
+                                <CardTitle
+                                    tag="h5"
+                                    onClick={() => goLink(item.id)}
+                                >
                                     {item.name}
                                 </CardTitle>
                                 <CardSubtitle
                                     className="mb-2 text-muted"
                                     tag="h6"
+                                    onClick={() => goLink(item.id)}
                                 >
                                     {vaildCrewMember(item.members)}&nbsp;{item.abstract}
                                 </CardSubtitle>
@@ -67,9 +77,6 @@ const GetCardList = (list: any) => {
                             {item.member_limit ? (<HashSpan color={"success"}>#선착순{item.member_limit}명</HashSpan>) : ''}
                         </CardText>
                         <p>{CommunityBadgeList(item.community_limit)}</p>
-                        <Link to={`/crew_detail/${item.id}`}>
-                            자세히 보기
-                        </Link>
                     </CardBody>
                 </CrewCart>
             </React.Fragment>
