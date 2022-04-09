@@ -21,7 +21,7 @@ async function doTokenInfo() {
     StorageUtil.local.setItem("status", userdata.status);
     let landingUrl = StorageUtil.session.getItem("landingUrl");
     StorageUtil.session.removeItem("landingUrl");
-    if (landingUrl !== '') {
+    if (landingUrl != '') {
         window.opener.location.replace(landingUrl);
     } else {
         window.opener.location.reload();

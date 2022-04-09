@@ -61,7 +61,7 @@ const CrewDetailPage = (props: PageTagProps) => {
 
     const hasMember = (members: [any]) => {
         const userid = StorageUtil.local.getId();
-        let filterMember = members.filter(item => item === userid);
+        let filterMember = members.filter(item => item === Number(userid));
         if (filterMember.length <= 0 || userid === '') {
             return (
                 <Button color={"primary"} block onClick={e => joinCrew(crew.id)}>
