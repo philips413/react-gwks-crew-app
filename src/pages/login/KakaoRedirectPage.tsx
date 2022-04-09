@@ -1,4 +1,4 @@
-import {axiosKakaoLogin, axiosPostRequest} from "../../config/AxiosConfig";
+import {axiosKakaoLogin} from "../../config/AxiosConfig";
 import { PageTagProps } from "../interface/PageInterface";
 import { getLoginInfo} from "../../api/LoginApi";
 import { StorageUtil } from "../../config/BrowserUtil";

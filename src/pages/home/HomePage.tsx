@@ -3,7 +3,7 @@ import Header from "../../layout/Header";
 import styled from "styled-components";
 import {getCrewList} from "../../api/CrewApi";
 import React, {useEffect, useState} from "react";
-import {Alert, Badge, Card, CardBody, CardSubtitle, CardText, CardTitle, Col, Row} from "reactstrap";
+import {Badge, Card, CardBody, CardSubtitle, CardText, CardTitle, Col, Row} from "reactstrap";
 import NoImage from '../../assets/img/no-image-found-360x250-1-300x208.png'
 import {Link} from "react-router-dom";
 import CommunityBadgeList from "../../components/CommunityBadgeList";
@@ -25,7 +25,7 @@ const HashSpan = styled.span`
 const GetCardList = (list: any) => {
     const vaildCrewMember = (members: []) => {
         const userid = StorageUtil.local.getId();
-        const filterMembers = members.filter(item => item == userid);
+        const filterMembers = members.filter(item => item === userid);
         if (filterMembers.length > 0) {
             return (
                 <Badge color={"success"} pill>참여중..</Badge>
@@ -44,6 +44,7 @@ const GetCardList = (list: any) => {
                         >
                             <Col xs={3}>
                                 <img
+                                    alt={""}
                                     src={item.image_thumbnail || NoImage}
                                     style={{"width": "80px", "height": "80px"}}
                                 />

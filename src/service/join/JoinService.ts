@@ -26,7 +26,7 @@ export default class JoinService {
     }
 
     async join(id:number, user: User) {
-        const result = await patchUserDetail(id, user);
+        await patchUserDetail(id, user);
         return true;
     }
 }

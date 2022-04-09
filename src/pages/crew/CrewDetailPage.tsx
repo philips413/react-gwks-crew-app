@@ -16,11 +16,6 @@ const CrewTitle = styled.div`
     text-align: center;
 `
 
-const CrewMemberList = styled.div`
- font-size : 15px;
- margin-bottom: 10px;
-`
-
 const CrewDetailPage = (props: PageTagProps) => {
     let navigate = useNavigate();
     const params = useParams();
@@ -38,7 +33,7 @@ const CrewDetailPage = (props: PageTagProps) => {
 
     const joinCrew = async (crewId: number) => {
         const userid = StorageUtil.local.getId();
-        if (userid == '') {
+        if (userid === '') {
             alert('로그인이 필요합니다.');
             StorageUtil.session.saveLandingUrl();
             navigate("/login");
@@ -58,7 +53,7 @@ const CrewDetailPage = (props: PageTagProps) => {
         const userid = StorageUtil.local.getId();
         // eslint-disable-next-line no-restricted-globals
         if (confirm('너무 슬프네요 :(\n정말로 탈퇴하시겠습니까?')) {
-            const result = await postCrewJoin(crewId, userid);
+            await postCrewJoin(crewId, userid);
             alert('크루 탈퇴가 완료되었습니다.\n함께해서 즐거웠어요~');
             navigate("/");
         }
@@ -66,8 +61,8 @@ const CrewDetailPage = (props: PageTagProps) => {
 
     const hasMember = (members: [any]) => {
         const userid = StorageUtil.local.getId();
-        let filterMember = members.filter(item => item == userid);
-        if (filterMember.length <= 0 || userid == '') {
+        let filterMember = members.filter(item => item === userid);
+        if (filterMember.length <= 0 || userid === '') {
             return (
                 <Button color={"primary"} block onClick={e => joinCrew(crew.id)}>
                     <TiUserAdd />&nbsp;참가하기
@@ -96,6 +91,7 @@ const CrewDetailPage = (props: PageTagProps) => {
                         크루 소개
                     </CardHeader>
                     <img
+                        alt={""}
                         src={crew.image || NoImage}
                         width={"100%"}
                     />

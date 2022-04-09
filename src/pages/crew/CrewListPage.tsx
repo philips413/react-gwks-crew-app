@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import {Badge, Button, Card, CardBody, CardSubtitle, CardText, CardTitle } from "reactstrap";
+import {Badge, Card, CardBody, CardSubtitle, CardText, CardTitle } from "reactstrap";
 import styled from "styled-components";
-import { getCrewList } from "../../api/CrewApi";
 import { getUserList } from "../../api/UserApi";
 import { CommunityCode } from "../../enum/OperationCode";
 import Header from "../../layout/Header";
