@@ -39,6 +39,19 @@ export async function axiosGetRequest(url: string, params?: {}) {
 }
 
 
+export async function axiosKakaoLogin(url: string, params?: {}) {
+    const axiosInstance = await axioxMainInstance();
+    const axios = await axiosInstance.getInstance();
+    return await axios.request({
+        url: url,
+        headers: {
+            "Authorization" : `Bearer ${getAccessToken()}`
+        },
+        method: "POST",
+        params: params
+    })
+}
+
 export async function axiosPostRequest(url: string, params?: {}) {
     const axiosInstance = await axioxMainInstance();
     const axios = await axiosInstance.getInstance();
