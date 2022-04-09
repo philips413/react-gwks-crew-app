@@ -32,5 +32,6 @@ export const postCrewJoin = async (pk:number, userid:any) => {
     const formData = new FormData();
     formData.append('userid', userid);
     const result = await axiosPostRequest(`/crew/${pk}/join`,formData);
+    result.data.isSuccess = (result.data['success'] !== undefined)
     return result.data;
 }

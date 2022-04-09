@@ -26,7 +26,7 @@ const GetCardList = (list: any) => {
     let navigate = useNavigate();
     const vaildCrewMember = (members: []) => {
         const userid = StorageUtil.session.getId();
-        const filterMembers = members.filter(item => item === userid);
+        const filterMembers = members.filter(item => item === Number(userid));
         if (filterMembers.length > 0) {
             return (
                 <Badge color={"success"} pill>참여중..</Badge>
@@ -67,7 +67,7 @@ const GetCardList = (list: any) => {
                                     tag="h6"
                                     onClick={() => goLink(item.id)}
                                 >
-                                    {vaildCrewMember(item.members)}&nbsp;{item.abstract}
+                                    {item.abstract}&emsp;{vaildCrewMember(item.members)}
                                 </CardSubtitle>
                             </Col>
                         </Row>

@@ -19,17 +19,6 @@ const axioxMainInstance = async () => {
             if (!instance) {
                 instance = await init();
             }
-
-            instance.interceptors.response.use(
-                (res: any) => {
-                    res.data.resCode = '01';
-                    return res;
-                },
-                (err: any) => {
-                    err.data.resCode = '02';
-                    return err;
-                }
-            )
             return instance;
         }
     }

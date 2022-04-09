@@ -42,10 +42,12 @@ const CrewDetailPage = (props: PageTagProps) => {
         // eslint-disable-next-line no-restricted-globals
         if(confirm('함께하게 되어서 좋습니다. :)\n크루에 가입하시겠습니까?')) {
             const result = await postCrewJoin(crewId, userid);
-            if (result.resCode == '01') {
+            if (result.isSuccess) {
                 alert('크루 가입이 완료되었습니다.');
                 window.location.reload();
+                return;
             }
+            alert(result.failed);
         }
     };
 
@@ -54,7 +56,7 @@ const CrewDetailPage = (props: PageTagProps) => {
         // eslint-disable-next-line no-restricted-globals
         if (confirm('너무 슬프네요 :(\n정말로 탈퇴하시겠습니까?')) {
             const result = await postCrewJoin(crewId, userid);
-            if (result.resCode == '01') {
+            if (result.isSuccess) {
                 alert('크루 탈퇴가 완료되었습니다.\n함께해서 즐거웠어요~');
                 navigate("/");
             }
