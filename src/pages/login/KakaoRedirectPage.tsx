@@ -10,7 +10,7 @@ async function doTokenInfo() {
     const result = await axiosPostRequest("https://kauth.kakao.com/oauth/token",{
         grant_type: "authorization_code",
         client_id: "5c7fe0d39ddd530bb8c5588ef3c1452a",
-        redirect_uri: "http://52.78.188.142/login/kakao/callback/",
+        redirect_uri: `${process.env.REACT_APP_OAUTH_URL}/login/kakao/callback/`,
         code: code,
         client_secret: "IwKQJvbH6UN40GOyG6VWSCKrPVBcIUic",
     });
@@ -21,8 +21,13 @@ async function doTokenInfo() {
     StorageUtil.local.setItem("userid", userdata.user.pk);
     StorageUtil.local.setItem("email", userdata.user.email);
     StorageUtil.local.setItem("status", userdata.status);
-    // @ts-ignore
-    window.opener.location.reload();
+    let landingUrl = StorageUtil.session.getItem("landingUrl");
+    StorageUtil.session.removeItem("landingUrl");
+    if (landingUrl != '') {
+        window.opener.location.replace(landingUrl);
+    } else {
+        window.opener.location.reload();
+    }
     window.close();
 }
 

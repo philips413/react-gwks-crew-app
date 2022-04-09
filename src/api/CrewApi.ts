@@ -1,4 +1,4 @@
-import {axiosGetRequest, axiosPatchRequest} from "../config/AxiosConfig";
+import {axiosGetRequest, axiosPatchRequest, axiosPostRequest} from "../config/AxiosConfig";
 import header from "../layout/Header";
 
 interface Crew {
@@ -24,13 +24,13 @@ export const getCrewList = async () => {
 }
 
 export const getCrewDetail = async (pk:number) => {
-    // '/crew/' + pk
-    // `/crew/${pk}`
     const result = await axiosGetRequest(`/crew/${pk}`,{});
     return result.data;
 }
 
-export const postCrewJoin = async (pk:number, data:any, accesstoken:string) => {
-    const result = await axiosPatchRequest(`/crew/${pk}`,data);
-    return result.data;
+export const postCrewJoin = async (pk:number, userid:any) => {
+    const formData = new FormData();
+    formData.append('userid', userid);
+    const result = await axiosPostRequest(`/crew/${pk}/join`,formData);
+    return (result.data.success == 'member add');
 }

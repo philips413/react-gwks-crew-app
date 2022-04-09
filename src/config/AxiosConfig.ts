@@ -48,7 +48,7 @@ export async function axiosPostRequest(url: string, params?: {}) {
             "Authorization" : `Bearer ${getAccessToken()}`
         },
         method: "POST",
-        params: params
+        data: params
     })
 }
 
@@ -90,7 +90,7 @@ export async function axiosDeleteRequest(url: string, params?: {}) {
             "Authorization" : `Bearer ${getAccessToken()}`
         },
         method: "DELETE",
-        params: params
+        data: params
     })
 }
 

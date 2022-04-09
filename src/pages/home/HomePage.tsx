@@ -3,10 +3,11 @@ import Header from "../../layout/Header";
 import styled from "styled-components";
 import {getCrewList} from "../../api/CrewApi";
 import React, {useEffect, useState} from "react";
-import {Card, CardBody, CardSubtitle, CardText, CardTitle, Col, Row} from "reactstrap";
+import {Alert, Badge, Card, CardBody, CardSubtitle, CardText, CardTitle, Col, Row} from "reactstrap";
 import NoImage from '../../assets/img/no-image-found-360x250-1-300x208.png'
 import {Link} from "react-router-dom";
 import CommunityBadgeList from "../../components/CommunityBadgeList";
+import {StorageUtil} from "../../config/BrowserUtil";
 
 const CrewCart = styled(Card)`
   margin-bottom: 10px;
@@ -22,6 +23,16 @@ const HashSpan = styled.span`
 `
 
 const GetCardList = (list: any) => {
+    const vaildCrewMember = (members: []) => {
+        const userid = StorageUtil.local.getId();
+        const filterMembers = members.filter(item => item == userid);
+        if (filterMembers.length > 0) {
+            return (
+                <Badge color={"success"} pill>참여중..</Badge>
+            )
+        }
+    }
+
     return list.map((item: any) => {
         return (
             <React.Fragment>
@@ -45,7 +56,7 @@ const GetCardList = (list: any) => {
                                     className="mb-2 text-muted"
                                     tag="h6"
                                 >
-                                    {item.abstract}
+                                    {vaildCrewMember(item.members)}&nbsp;{item.abstract}
                                 </CardSubtitle>
                             </Col>
                         </Row>

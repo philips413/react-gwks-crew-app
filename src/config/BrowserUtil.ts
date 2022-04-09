@@ -1,9 +1,12 @@
 import jwt_decode, { JwtPayload } from "jwt-decode";
-import moment from "moment";
 export const StorageUtil = {
     session: {
         getItem: (key: string) => sessionStorage.getItem(key),
-        setItem: (key: string, value: string) => sessionStorage.setItem(key, value)
+        removeItem: (key: string) => sessionStorage.removeItem(key),
+        setItem: (key: string, value: string) => sessionStorage.setItem(key, value),
+        saveLandingUrl: () => {
+            sessionStorage.setItem("landingUrl", window.location.href);
+        }
     },
     local: {
         getItem: (key: string) => localStorage.getItem(key),
