@@ -42,7 +42,7 @@ const CrewDetailPage = (props: PageTagProps) => {
         // eslint-disable-next-line no-restricted-globals
         if(confirm('함께하게 되어서 좋습니다. :)\n크루에 가입하시겠습니까?')) {
             const result = await postCrewJoin(crewId, userid);
-            if (result) {
+            if (result.resCode == '01') {
                 alert('크루 가입이 완료되었습니다.');
                 window.location.reload();
             }
@@ -53,9 +53,11 @@ const CrewDetailPage = (props: PageTagProps) => {
         const userid = StorageUtil.session.getId();
         // eslint-disable-next-line no-restricted-globals
         if (confirm('너무 슬프네요 :(\n정말로 탈퇴하시겠습니까?')) {
-            await postCrewJoin(crewId, userid);
-            alert('크루 탈퇴가 완료되었습니다.\n함께해서 즐거웠어요~');
-            navigate("/");
+            const result = await postCrewJoin(crewId, userid);
+            if (result.resCode == '01') {
+                alert('크루 탈퇴가 완료되었습니다.\n함께해서 즐거웠어요~');
+                navigate("/");
+            }
         }
     }
 
@@ -113,52 +115,34 @@ const CrewDetailPage = (props: PageTagProps) => {
                     </CardHeader>
                     <CardBody>
                         <table>
-                            <col width={"100px"} />
-                            <col width={"100px"} />
-                            <tr>
-                                <td style={{"fontWeight": "bold"}}>모임 빈도</td>
-                                <td>{crew.period}</td>
-                            </tr>
-                            <tr>
-                                <td style={{"fontWeight": "bold"}}>모임 요일</td>
-                                <td>{crew.weekday}</td>
-                            </tr>
-                            <tr>
-                                <td style={{"fontWeight": "bold"}}>진행 시간</td>
-                                <td>{crew.start_time}~{crew.end_time}</td>
-                            </tr>
-                            <tr>
-                                <td style={{"fontWeight": "bold"}}>모임 형식</td>
-                                <td>{crew.meeting_type}</td>
-                            </tr>
+                            <colgroup>
+                                <col width={"100px"} />
+                                <col width={"100px"} />
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td style={{"fontWeight": "bold"}}>모임 빈도</td>
+                                    <td>{crew.period}</td>
+                                </tr>
+                                <tr>
+                                    <td style={{"fontWeight": "bold"}}>모임 요일</td>
+                                    <td>{crew.weekday}</td>
+                                </tr>
+                                <tr>
+                                    <td style={{"fontWeight": "bold"}}>진행 시간</td>
+                                    <td>{crew.start_time}~{crew.end_time}</td>
+                                </tr>
+                                <tr>
+                                    <td style={{"fontWeight": "bold"}}>모임 형식</td>
+                                    <td>{crew.meeting_type}</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </CardBody>
                 </Card>
                 <br />
-                    {hasMember(crew.members)}
+                {hasMember(crew.members)}
                 <br />
-                {/*<CrewMemberList>*/}
-                {/*    <ListGroup flush>*/}
-                {/*        <ListGroupItem>*/}
-                {/*            카톡프사 이름1 (닉네임1) &nbsp;*/}
-                {/*                <Badge color="primary">*/}
-                {/*                    매니저*/}
-                {/*                </Badge>*/}
-                {/*        </ListGroupItem>*/}
-                {/*        <ListGroupItem>*/}
-                {/*            카톡프사 이름2 (닉네임2)*/}
-                {/*        </ListGroupItem>*/}
-                {/*        <ListGroupItem>*/}
-                {/*            카톡프사 이름3 (닉네임3)*/}
-                {/*        </ListGroupItem>*/}
-                {/*        <ListGroupItem>*/}
-                {/*            카톡프사 이름4 (닉네임4)*/}
-                {/*        </ListGroupItem>*/}
-                {/*        <ListGroupItem>*/}
-                {/*            카톡프사 이름5 (닉네임5)*/}
-                {/*        </ListGroupItem>*/}
-                {/*    </ListGroup>*/}
-                {/*</CrewMemberList>*/}
             </main>
         </div>
     )

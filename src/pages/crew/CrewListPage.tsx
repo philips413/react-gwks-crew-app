@@ -31,9 +31,9 @@ const CrewListPage = (props: PageTagProps) => {
         <>
             <Header title={props.title} />
             <main>
-                {crewList.map((item: any) => {
+                {crewList.map((item: any, index: number) => {
                     return (
-                        <CrewCart>
+                        <CrewCart key={`crewCard${index}`}>
                             <CardBody>
                                 <CardTitle tag="h5">
                                     {item.nickname || item.name}&nbsp;<span style={{"color": "grey", "fontSize": "13px"}}>({item.name})</span>

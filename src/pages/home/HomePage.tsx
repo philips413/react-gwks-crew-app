@@ -5,7 +5,7 @@ import {getCrewList} from "../../api/CrewApi";
 import React, {useEffect, useState} from "react";
 import {Badge, Card, CardBody, CardSubtitle, CardText, CardTitle, Col, Row} from "reactstrap";
 import NoImage from '../../assets/img/no-image-found-360x250-1-300x208.png'
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import CommunityBadgeList from "../../components/CommunityBadgeList";
 import {StorageUtil} from "../../config/BrowserUtil";
 
@@ -38,9 +38,9 @@ const GetCardList = (list: any) => {
         navigate(`/crew_detail/${id}`);
     }
 
-    return list.map((item: any) => {
+    return list.map((item: any, index: number) => {
         return (
-            <React.Fragment>
+            <React.Fragment key={`ReactFragment${index}`}>
                 <CrewCart key={`card${item.id}`}>
                     <CardBody>
                         <Row

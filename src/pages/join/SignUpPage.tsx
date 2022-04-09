@@ -32,15 +32,18 @@ const SignUpPage = (props: PageTagProps) => {
         }
     };
 
-    const DoAgreeJoin = () => {
+    const DoAgreeJoin = async () => {
         const joinService = new JoinService();
         const user = {email, name, community, birthyear, nickname};
         const isAccess = joinService.doValidation(user);
         if (isAccess) {
             if (window.confirm("가입을 승인하시겠습니다?")) {
                 const userId = StorageUtil.session.getItem("userid");
-                joinService.join(Number(userId), user);
-                navigate("/");
+                const isSuccess = await joinService.join(Number(userId), user);
+                if (isSuccess) {
+                    StorageUtil.session.setItem("status", "exist");
+                    navigate("/");
+                }
             }
         }
     }

@@ -9,10 +9,10 @@ const CommunityBadgeList = (list: []) => {
             {
                 list.map((item:number, index:number) => {
                     return (
-                        <>
-                            <Badge key={`Badge${index}`} color={"secondary"}>{select(item)}</Badge>
+                        <React.Fragment key={`BadgeFragment${index}`}>
+                            <Badge key={item} color={"secondary"}>{select(item)}</Badge>
                             &nbsp;
-                        </>
+                        </React.Fragment>
                     )
                 })
             }
