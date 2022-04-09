@@ -14,11 +14,7 @@ async function doTokenInfo() {
     });
     const {access_token} = result.data;
     const userdata = await getLoginInfo(access_token);
-    StorageUtil.local.setItem("access_token", userdata.access_token);
-    StorageUtil.local.setItem("refresh_token", userdata.refresh_token);
-    StorageUtil.local.setItem("userid", userdata.user.pk);
-    StorageUtil.local.setItem("email", userdata.user.email);
-    StorageUtil.local.setItem("status", userdata.status);
+    window.opener.loginSession(userdata);
     let landingUrl = StorageUtil.session.getItem("landingUrl");
     StorageUtil.session.removeItem("landingUrl");
     if (landingUrl != '') {

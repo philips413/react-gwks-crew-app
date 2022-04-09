@@ -1,10 +1,8 @@
-import { Button } from "reactstrap";
 import Header from "../layout/Header";
-import { PageTagProps } from "./interface/PageInterface";
-import KakaoLogin from '../assets/img/kakao_login.png'
-import { StorageUtil } from "../config/BrowserUtil";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import {PageTagProps} from "./interface/PageInterface";
+import {StorageUtil} from "../config/BrowserUtil";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 function loginWithKakao() {
     window.open(`/login/kakao`, "kakaoLogin",  "width=500, height=800");
@@ -13,8 +11,8 @@ function loginWithKakao() {
 const LoginPage = (props: PageTagProps) => {
     const navigate = useNavigate();
     useEffect(() => {
-        const accessToken = StorageUtil.local.getAccessToken();
-        const status = StorageUtil.local.getItem("status");
+        const accessToken = StorageUtil.session.getAccessToken();
+        const status = StorageUtil.session.getItem("status");
         if (status === "new") {
             navigate("/join");
         }

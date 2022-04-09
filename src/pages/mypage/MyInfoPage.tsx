@@ -28,7 +28,7 @@ const MyInfoPage = (props: PageTagProps) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const userId = StorageUtil.local.getId();
+            const userId = StorageUtil.session.getId();
             const userData = await getUserDetail(Number(userId));
             setEmail(userData.email);
             setName(userData.name);
@@ -54,7 +54,7 @@ const MyInfoPage = (props: PageTagProps) => {
         const isAccess = joinService.doValidation(user);
         if (isAccess) {
             if (window.confirm("수정 하시겠습니까?")) {
-                const userId = StorageUtil.local.getItem("userid");
+                const userId = StorageUtil.session.getItem("userid");
                 joinService.join(Number(userId), user);
                 navigate("/");
             }

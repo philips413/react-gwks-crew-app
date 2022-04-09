@@ -25,7 +25,7 @@ const axioxMainInstance = async () => {
 }
 
 function getAccessToken () {
-    return StorageUtil.local.getItem("access_token");
+    return StorageUtil.session.getItem("access_token");
 }
 
 export async function axiosGetRequest(url: string, params?: {}) {

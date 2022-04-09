@@ -25,7 +25,7 @@ const HashSpan = styled.span`
 const GetCardList = (list: any) => {
     let navigate = useNavigate();
     const vaildCrewMember = (members: []) => {
-        const userid = StorageUtil.local.getId();
+        const userid = StorageUtil.session.getId();
         const filterMembers = members.filter(item => item === userid);
         if (filterMembers.length > 0) {
             return (

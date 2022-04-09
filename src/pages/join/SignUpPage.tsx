@@ -19,7 +19,7 @@ const getClassList = () => {
 
 const SignUpPage = (props: PageTagProps) => {
     const navigate = useNavigate();
-    const _email = StorageUtil.local.getItem("email") || null;
+    const _email = StorageUtil.session.getItem("email") || null;
     const [email, setEmail] = useState(_email as any);
     const [name, setName] = useState("");
     const [community, setCommunity] = useState(0);
@@ -38,7 +38,7 @@ const SignUpPage = (props: PageTagProps) => {
         const isAccess = joinService.doValidation(user);
         if (isAccess) {
             if (window.confirm("가입을 승인하시겠습니다?")) {
-                const userId = StorageUtil.local.getItem("userid");
+                const userId = StorageUtil.session.getItem("userid");
                 joinService.join(Number(userId), user);
                 navigate("/");
             }

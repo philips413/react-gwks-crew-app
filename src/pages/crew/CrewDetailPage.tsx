@@ -32,7 +32,7 @@ const CrewDetailPage = (props: PageTagProps) => {
     }, []);
 
     const joinCrew = async (crewId: number) => {
-        const userid = StorageUtil.local.getId();
+        const userid = StorageUtil.session.getId();
         if (userid === '') {
             alert('로그인이 필요합니다.');
             StorageUtil.session.saveLandingUrl();
@@ -50,7 +50,7 @@ const CrewDetailPage = (props: PageTagProps) => {
     };
 
     const exitCrew = async (crewId: number) => {
-        const userid = StorageUtil.local.getId();
+        const userid = StorageUtil.session.getId();
         // eslint-disable-next-line no-restricted-globals
         if (confirm('너무 슬프네요 :(\n정말로 탈퇴하시겠습니까?')) {
             await postCrewJoin(crewId, userid);
@@ -60,7 +60,7 @@ const CrewDetailPage = (props: PageTagProps) => {
     }
 
     const hasMember = (members: [any]) => {
-        const userid = StorageUtil.local.getId();
+        const userid = StorageUtil.session.getId();
         let filterMember = members.filter(item => item === Number(userid));
         if (filterMember.length <= 0 || userid === '') {
             return (

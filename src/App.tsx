@@ -97,11 +97,6 @@ const MainButtonGroup = styled.div`
 `
 
 function App() {
-    useEffect(() => {
-        return (() => {
-            StorageUtil.local.doInitToken();
-        });
-    }, []);
     return (
         <div className="App">
             <Wrapper>

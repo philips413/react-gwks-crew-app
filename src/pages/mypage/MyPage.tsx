@@ -13,12 +13,12 @@ const FindCommunity = (code: number) => {
 
 const MainPage = (props: PageTagProps) => {
     const navigate = useNavigate();
-    const status = StorageUtil.local.getItem("status");
+    const status = StorageUtil.session.getItem("status");
     const [userInfo, setUserInfo] = useState({} as any);
-    const userId = StorageUtil.local.getId();
+    const userId = StorageUtil.session.getId();
 
     useEffect(() => {
-        const accessToken = StorageUtil.local.getAccessToken()
+        const accessToken = StorageUtil.session.getAccessToken()
         if (accessToken == null) {
             navigate(`/login`);
         }
