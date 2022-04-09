@@ -42,6 +42,7 @@ const CrewDetailPage = (props: PageTagProps) => {
             alert('로그인이 필요합니다.');
             StorageUtil.session.saveLandingUrl();
             navigate("/login");
+            return;
         }
         // eslint-disable-next-line no-restricted-globals
         if(confirm('함께하게 되어서 좋습니다. :)\n크루에 가입하시겠습니까?')) {
