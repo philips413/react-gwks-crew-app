@@ -6,7 +6,6 @@ import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 
 const KakaoRedirectPage = (props: PageTagProps) => {
-    const navigate = useNavigate();
     useEffect(() => {
         const doTokenValidate = async () => {
             const code = new URL(window.location.href).searchParams.get("code");
@@ -28,7 +27,7 @@ const KakaoRedirectPage = (props: PageTagProps) => {
             StorageUtil.session.removeItem("landingUrl");
 
             if (userdata.status == 'new') {
-                navigate("/join/");
+                window.location.replace(`${process.env.REACT_APP_URL}/join/`)
                 return;
             }
 
@@ -36,7 +35,7 @@ const KakaoRedirectPage = (props: PageTagProps) => {
                 window.location.replace(landingUrl);
                 return;
             } else {
-                navigate("/mypage/");
+                window.location.replace(`${process.env.REACT_APP_URL}/mypage/`)
                 return;
             }
         };

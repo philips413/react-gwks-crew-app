@@ -44,8 +44,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "cross-env REACT_APP_OAUTH_URL=http://localhost:3000 react-scripts start",
-    "build": "cross-env REACT_APP_OAUTH_URL=http://52.78.188.142 react-scripts build",
+    "start": "cross-env REACT_APP_URL=http://localhost:3000 REACT_APP_OAUTH_URL=http://localhost:3000 react-scripts start",
+    "build": "cross-env REACT_APP_URL=http://52.78.188.142 REACT_APP_OAUTH_URL=http://52.78.188.142 react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
