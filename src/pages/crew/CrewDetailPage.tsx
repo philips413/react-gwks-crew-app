@@ -171,7 +171,7 @@ const CrewDetailPage = (props: PageTagProps) => {
                             <tbody>
                                 <tr>
                                     <td>크루장</td>
-                                    <td>{crewMaster.nickname}({crewMaster.name})</td>
+                                    <td>{crewMaster.nickname || crewMaster.name}({crewMaster.name})</td>
                                     <td>{crewMaster.birthyear}</td>
                                     <td>{CommunityBadge(crewMaster.community)}</td>
                                 </tr>
