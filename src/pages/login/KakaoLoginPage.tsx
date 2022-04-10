@@ -8,10 +8,10 @@ const KakaoLogin = (props: PageTagProps) => {
     })
     Kakao.Auth.login({
         success: function(authObj: any) {
-            console.log(JSON.stringify(authObj))
+            console.log(`로그인 성공 ==> ${JSON.stringify(authObj)}`)
         },
         fail: function(err: any) {
-            console.log(JSON.stringify(err))
+            alert(`로그인 실패 ==> ${JSON.stringify(err)}`)
         }
     })
     return (

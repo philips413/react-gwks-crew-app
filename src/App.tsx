@@ -108,10 +108,10 @@ function App() {
                         <Routes>
                             <Route path={"/"} element={<HomePage title="청년마을 크루앱" />} />
                             <Route path={"/list"} element={<CrewListPage title="크루 회원" />} />
-                            <Route path={"/login"} element={<LoginPage title={"로그인"} />} />
                             <Route path={"/join"} element={<SignUpPage title={"회원가입"} />} />
                             <Route path={"/mypage/:userid"} element={<MyInfoPage title={"내 정보 수정"} />} />
                             <Route path={"/mypage"} element={<MyPage title={"내 정보"} />} />
+                            <Route path={"/login"} element={<LoginPage title={"로그인"} />} />
                             <Route path={"/login/kakao"} element={<KakaoLoginPage title={"카카오 로그인 페이지"} />} />
                             <Route path={"/login/kakao/callback"} element={<KakaoRedirectPage title={"카카오 리다이렉트 페이지"} />} />
                             <Route path={"/test"} element={<Test />} />
