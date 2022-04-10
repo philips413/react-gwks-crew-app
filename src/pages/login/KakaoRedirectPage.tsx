@@ -26,10 +26,18 @@ const KakaoRedirectPage = (props: PageTagProps) => {
             sessionStorage.setItem("status", userdata.status);
             let landingUrl = StorageUtil.session.getItem("landingUrl");
             StorageUtil.session.removeItem("landingUrl");
+
+            if (userdata.status == 'new') {
+                navigate("/join/");
+                return;
+            }
+
             if (landingUrl != '') {
                 navigate(landingUrl);
+                return;
             } else {
                 navigate("/mypage/");
+                return;
             }
         };
         doTokenValidate();

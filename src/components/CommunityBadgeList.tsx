@@ -21,4 +21,19 @@ const CommunityBadgeList = (list: []) => {
     );
 }
 
+export const CommunityBadge = (communityCode: number) => {
+    const select = (id: number) => CommunityCode.findById(id).text
+    return (
+        <React.Fragment>
+            {
+                <React.Fragment key={`BadgeFragment`}>
+                    <Badge key={communityCode} color={"secondary"}>{select(communityCode)}</Badge>
+                    &nbsp;
+                </React.Fragment>
+            }
+        </React.Fragment>
+    );
+
+}
+
 export default CommunityBadgeList;

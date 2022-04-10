@@ -18,14 +18,6 @@
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
       Kakao.init("7b512bfbe3a9c4c39baf19fd2984f20d");
-      function loginSession(accessObject) {
-        sessionStorage.setItem("access_token", accessObject.access_token);
-        sessionStorage.setItem("refresh_token", accessObject.refresh_token);
-        sessionStorage.setItem("userid", accessObject.user.pk);
-        sessionStorage.setItem("email", accessObject.user.email);
-        sessionStorage.setItem("status", accessObject.status);
-        window.location.reload();
-      }
     </script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.

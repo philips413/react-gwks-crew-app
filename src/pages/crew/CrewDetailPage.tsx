@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Button, Card, CardBody, CardFooter, CardHeader, CardText, CardTitle} from "reactstrap";
+import {Button, Card, CardBody, CardFooter, CardHeader, CardText, CardTitle, Table} from "reactstrap";
 import Header from "../../layout/Header";
 import {PageTagProps} from "../interface/PageInterface";
 import NoImage from '../../assets/img/no-image-found-360x250-1-300x208.png';
@@ -7,8 +7,9 @@ import {getCrewDetail, postCrewJoin} from "../../api/CrewApi";
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from 'react-router';
 import {TiUserAdd} from 'react-icons/ti';
-import CommunityBadgeList from '../../components/CommunityBadgeList';
+import CommunityBadgeList, {CommunityBadge} from '../../components/CommunityBadgeList';
 import {StorageUtil} from "../../config/BrowserUtil";
+import {getUserDetail} from "../../api/UserApi";
 
 const CrewTitle = styled.div`
     width: 100%;
@@ -23,10 +24,19 @@ const CrewDetailPage = (props: PageTagProps) => {
         members: [],
         community_limit: []
     } as any);
+    const [crewMaster, setCrewMaster] = useState({
+        nickname: '',
+        name: '',
+        birthyear: 0,
+        community: 0
+    });
+    const [crewMember, setCrewMemeber] = useState([]);
     useEffect(()  => {
         const fetchData = async () => {
             const data = await getCrewDetail(Number(params.id));
+            const resultCrewMaster = await getUserDetail(data.manager);
             setCrew(data);
+            setCrewMaster(resultCrewMaster);
         }
         fetchData();
     }, []);
@@ -78,7 +88,6 @@ const CrewDetailPage = (props: PageTagProps) => {
                 <TiUserAdd />&nbsp;탈퇴하기
             </Button>
         )
-
     }
 
     return (
@@ -143,6 +152,33 @@ const CrewDetailPage = (props: PageTagProps) => {
                     </CardBody>
                 </Card>
                 <br />
+                <Card>
+                    <CardHeader>
+                        크루장 및 크루원
+                    </CardHeader>
+                    <CardBody>
+                        <Table>
+                            <colgroup>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td>닉네임(이름)</td>
+                                    <td>또래</td>
+                                    <td>소속 공동체</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>크루장</td>
+                                    <td>{crewMaster.nickname}({crewMaster.name})</td>
+                                    <td>{crewMaster.birthyear}</td>
+                                    <td>{CommunityBadge(crewMaster.community)}</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </CardBody>
+                </Card>
                 {hasMember(crew.members)}
                 <br />
             </main>

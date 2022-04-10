@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Card, CardBody, CardText } from "reactstrap";
+import {Alert, Button, Card, CardBody, CardText} from "reactstrap";
 import { getUserDetail } from "../../api/UserApi";
 import { StorageUtil } from "../../config/BrowserUtil";
 import { CommunityCode } from "../../enum/OperationCode";
@@ -41,10 +41,21 @@ const MainPage = (props: PageTagProps) => {
                 <div>
                     <div>
                         {status === "new" ?
-                            <div style={{"textAlign": "center", "marginBottom": "10px"}}>
-                                <p>Oops! 회원가입을 마무리 하지 못했군요?</p>
-                                <Button color={"primary"} onClick={e => doJoin()}>회원가입</Button>
-                            </div>
+                            <Alert color={"warning"}>
+                                <h4 className="alert-heading">
+                                    Oops! 회원가입을 마무리 하지 못했군요?
+                                </h4>
+                                <p>
+                                    <ul>
+                                        <li><b>이름</b>이 기재 되어 있지 않을 경우, 크루장님이 찾아내기가 어렵습니다.</li>
+                                        <li><b>소속 공동체</b>를 선택하지 않을 경우, 원하는 크루에 가입이 안될 수 있습니다.</li>
+                                    </ul>
+                                </p>
+                                <hr />
+                                <p className="mb-0">
+                                    <Button color={"primary"} onClick={e => doJoin()}>회원가입</Button>
+                                </p>
+                            </Alert>
                             :
                             <div></div>
                         }
@@ -52,10 +63,10 @@ const MainPage = (props: PageTagProps) => {
                     <Card>
                         <CardBody>
                             <CardText>
-                                <b>닉네임</b> : {userInfo.nickname}
+                                <b>닉네임</b> : {userInfo.nickname || "<닉네임을 입력하여 주세요.>"}
                             </CardText>
                             <CardText>
-                                <b>이름</b> : {userInfo.name}
+                                <b>이름</b> : {userInfo.name || "<이름을 입력하여 주세요.>"}
                             </CardText>
                             <CardText>
                                 <b>이메일</b> : {userInfo.email}
@@ -75,7 +86,7 @@ const MainPage = (props: PageTagProps) => {
                     </Card>
                 </div>
                 <div style={{"float": "right", "marginTop": "5px", "bottom": "50px"}}>
-                    <p style={{"fontSize":"11px", "color": "#ced4da", "fontStyle": "italic"}}>Created By. Street Coding Fighter Crew</p>
+                    <p style={{"fontSize":"11px", "color": "#ced4da", "fontStyle": "italic"}}>Made By. Street Coding Fighter Crew</p>
                 </div>
             </main>
         </>
