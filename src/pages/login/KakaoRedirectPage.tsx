@@ -33,7 +33,7 @@ const KakaoRedirectPage = (props: PageTagProps) => {
             }
 
             if (landingUrl != '') {
-                navigate(landingUrl);
+                window.location.replace(landingUrl);
                 return;
             } else {
                 navigate("/mypage/");
