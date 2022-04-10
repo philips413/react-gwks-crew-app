@@ -106,7 +106,7 @@ function App() {
                 <MainContainer>
                     <section className={"mainWrapper"}>
                         <Routes>
-                            <Route path={"/"} element={<HomePage title="광성마을 크루앱" />} />
+                            <Route path={"/"} element={<HomePage title="청년마을 크루앱" />} />
                             <Route path={"/list"} element={<CrewListPage title="크루 회원" />} />
                             <Route path={"/login"} element={<LoginPage title={"로그인"} />} />
                             <Route path={"/join"} element={<SignUpPage title={"회원가입"} />} />

@@ -4,10 +4,6 @@ import {StorageUtil} from "../config/BrowserUtil";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 
-function loginWithKakao() {
-    window.open(`/login/kakao`, "kakaoLogin",  "width=500, height=800");
-}
-
 const LoginPage = (props: PageTagProps) => {
     const navigate = useNavigate();
     useEffect(() => {
@@ -17,9 +13,14 @@ const LoginPage = (props: PageTagProps) => {
             navigate("/join");
         }
         if (accessToken != null) {
-            navigate("/mypage");
+            window.location.replace("/mypage");
         }
     });
+
+    const loginWithKakao = () => {
+        navigate("/login/kakao");
+    }
+
     return (
         <>
             <Header title={props.title} />
