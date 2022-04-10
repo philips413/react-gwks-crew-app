@@ -2,10 +2,11 @@ import {axiosKakaoLogin} from "../../config/AxiosConfig";
 import { PageTagProps } from "../interface/PageInterface";
 import { getLoginInfo} from "../../api/LoginApi";
 import { StorageUtil } from "../../config/BrowserUtil";
-import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 
 const KakaoRedirectPage = (props: PageTagProps) => {
+    const navigate = useNavigate();
     useEffect(() => {
         const doTokenValidate = async () => {
             const code = new URL(window.location.href).searchParams.get("code");
@@ -27,7 +28,7 @@ const KakaoRedirectPage = (props: PageTagProps) => {
             StorageUtil.session.removeItem("landingUrl");
 
             if (userdata.status == 'new') {
-                window.location.replace(`${process.env.REACT_APP_URL}/join/`)
+                navigate(`/join/`)
                 return;
             }
 
@@ -35,7 +36,7 @@ const KakaoRedirectPage = (props: PageTagProps) => {
                 window.location.replace(landingUrl);
                 return;
             } else {
-                window.location.replace(`${process.env.REACT_APP_URL}/mypage/`)
+                navigate(`/mypage/`)
                 return;
             }
         };

@@ -1,19 +1,14 @@
 import { PageTagProps } from "../interface/PageInterface";
+import {useEffect} from "react";
 
 const KakaoLogin = (props: PageTagProps) => {
-    // @ts-ignore
-    const { Kakao } = globalThis;
-    Kakao.Auth.authorize({
-        redirectUri: `${process.env.REACT_APP_OAUTH_URL}/login/kakao/callback/`
-    })
-    Kakao.Auth.login({
-        success: function(authObj: any) {
-            console.log(`로그인 성공 ==> ${JSON.stringify(authObj)}`)
-        },
-        fail: function(err: any) {
-            alert(`로그인 실패 ==> ${JSON.stringify(err)}`)
-        }
-    })
+    useEffect(() => {
+        const oauth = async () => {
+            const redirectionUrl = `${process.env.REACT_APP_OAUTH_URL}/login/kakao/callback/`;
+            window.location.replace(`https://kauth.kakao.com/oauth/authorize?client_id=7b512bfbe3a9c4c39baf19fd2984f20d&redirect_uri=${redirectionUrl}&response_type=code`)
+        };
+        oauth();
+    }, []);
     return (
         <>
             <div></div>
