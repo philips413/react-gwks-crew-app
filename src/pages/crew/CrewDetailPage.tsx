@@ -187,7 +187,7 @@ const CrewDetailPage = (props: PageTagProps) => {
                                     crewMember.map((item:any, index: number) => {
                                         const {name, nickname, birthyear, community} = item;
                                         return (
-                                            <tr>
+                                            <tr key={`CrewDetailMember${index}`}>
                                                 <td>{index + 1}</td>
                                                 <td>{nickname}({name})</td>
                                                 <td>{birthyear}</td>
