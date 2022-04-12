@@ -4,12 +4,13 @@ import Header from "../../layout/Header";
 import {PageTagProps} from "../interface/PageInterface";
 import NoImage from '../../assets/img/no-image-found-360x250-1-300x208.png';
 import {getCrewDetail, postCrewJoin} from "../../api/CrewApi";
-import React, {useEffect, useState} from "react";
+import React, {memo, useEffect, useState} from "react";
 import {useNavigate, useParams} from 'react-router';
 import {TiUserAdd} from 'react-icons/ti';
 import CommunityBadgeList, {CommunityBadge} from '../../components/CommunityBadgeList';
 import {StorageUtil} from "../../config/BrowserUtil";
 import {getUserDetail} from "../../api/UserApi";
+import {CommunityCode} from "../../enum/OperationCode";
 
 const CrewTitle = styled.div`
     width: 100%;
@@ -30,17 +31,24 @@ const CrewDetailPage = (props: PageTagProps) => {
         birthyear: 0,
         community: 0
     });
-    const [crewMember, setCrewMemeber] = useState([]);
+    const [crewMember, setCrewMember] = useState([] as any);
     useEffect(()  => {
         const fetchData = async () => {
             const data = await getCrewDetail(Number(params.id));
             const resultCrewMaster = await getUserDetail(data.manager);
+            let _crewMember:any[] = [];
+            for(let id of data.members) {
+                if (resultCrewMaster.id !== id) {
+                    const user = await getUserDetail(id);
+                    _crewMember.push(user);
+                }
+            }
             setCrew(data);
             setCrewMaster(resultCrewMaster);
+            setCrewMember(_crewMember);
         }
         fetchData();
     }, []);
-
     const joinCrew = async (crewId: number) => {
         const userid = StorageUtil.session.getId();
         if (userid === '') {
@@ -175,6 +183,21 @@ const CrewDetailPage = (props: PageTagProps) => {
                                     <td>{crewMaster.birthyear}</td>
                                     <td>{CommunityBadge(crewMaster.community)}</td>
                                 </tr>
+                                {
+                                    crewMember.map((item:any, index: number) => {
+                                        const {name, nickname, birthyear, community} = item;
+                                        return (
+                                            <tr>
+                                                <td>{index + 1}</td>
+                                                <td>{nickname}({name})</td>
+                                                <td>{birthyear}</td>
+                                                <td>
+                                                    {CommunityBadge(community)}
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
                             </tbody>
                         </Table>
                     </CardBody>

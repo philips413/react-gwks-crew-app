@@ -1,8 +1,6 @@
 import {axiosGetRequest, axiosPatchRequest, axiosPostRequest} from "../config/AxiosConfig";
-import header from "../layout/Header";
-import {accessSync} from "fs";
 
-interface User {
+export interface User {
     id: number,
     last_login: string,
     is_superuser: boolean,
