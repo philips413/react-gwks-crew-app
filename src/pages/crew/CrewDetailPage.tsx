@@ -10,7 +10,7 @@ import {TiUserAdd} from 'react-icons/ti';
 import CommunityBadgeList, {CommunityBadge} from '../../components/CommunityBadgeList';
 import {StorageUtil} from "../../config/BrowserUtil";
 import {getUserDetail} from "../../api/UserApi";
-import {CommunityCode} from "../../enum/OperationCode";
+import NickAndName from "../../components/NickAndName";
 
 const CrewTitle = styled.div`
     width: 100%;
@@ -26,6 +26,8 @@ const CrewDetailPage = (props: PageTagProps) => {
         community_limit: []
     } as any);
     const [crewMaster, setCrewMaster] = useState({
+        profile_image: '',
+        email: '',
         nickname: '',
         name: '',
         birthyear: 0,
@@ -179,18 +181,45 @@ const CrewDetailPage = (props: PageTagProps) => {
                             <tbody>
                                 <tr>
                                     <td>크루장</td>
-                                    <td>{crewMaster.nickname || crewMaster.name}({crewMaster.name})</td>
+                                    <td>
+                                        <div style={{"display": "flex"}}>
+                                            <div style={{width:"50px", height: "50px", marginRight: "5px"}}>
+                                                <img
+                                                    src={crewMaster.profile_image}
+                                                    style={{width: "100%", height: "100%"}}
+                                                />
+                                            </div>
+                                            <NickAndName nickname={crewMaster.nickname} name={crewMaster.name} email={crewMaster.email} />
+                                        </div>
+                                    </td>
                                     <td>{crewMaster.birthyear}</td>
                                     <td>{CommunityBadge(crewMaster.community)}</td>
                                 </tr>
                                 {
                                     crewMember.map((item:any, index: number) => {
-                                        const {name, nickname, birthyear, community} = item;
+                                        const {name, nickname, birthyear, community, email, profile_image} = item;
                                         return (
                                             <tr key={`CrewDetailMember${index}`}>
                                                 <td>{index + 1}</td>
-                                                <td>{nickname}({name})</td>
-                                                <td>{birthyear}</td>
+                                                <td>
+                                                    <div style={{"display": "flex"}}>
+                                                        <div style={{width:"50px", height: "50px", marginRight: "5px"}}>
+                                                            <img
+                                                                src={profile_image}
+                                                                style={{width: "100%", height: "100%"}}
+                                                            />
+                                                        </div>
+                                                        <NickAndName nickname={nickname} name={name} email={email} />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {
+                                                        birthyear !== null ?
+                                                            birthyear < 10 ? `0${birthyear}` : birthyear
+                                                        :
+                                                            ''
+                                                    }
+                                                </td>
                                                 <td>
                                                     {CommunityBadge(community)}
                                                 </td>

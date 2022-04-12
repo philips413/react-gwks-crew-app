@@ -5,6 +5,7 @@ import { getUserList } from "../../api/UserApi";
 import { CommunityCode } from "../../enum/OperationCode";
 import Header from "../../layout/Header";
 import { PageTagProps } from "../interface/PageInterface";
+import NickAndName from "../../components/NickAndName";
 
 const CrewCart = styled(Card)`
   margin-bottom: 10px;
@@ -36,7 +37,7 @@ const CrewListPage = (props: PageTagProps) => {
                         <CrewCart key={`crewCard${index}`}>
                             <CardBody>
                                 <CardTitle tag="h5">
-                                    {item.nickname || item.name}&nbsp;<span style={{"color": "grey", "fontSize": "13px"}}>({item.name})</span>
+                                    <NickAndName nickname={item.nickname} name={item.name} />
                                 </CardTitle>
                                 <CardSubtitle
                                     className="mb-2 text-muted"
