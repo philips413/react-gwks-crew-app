@@ -58,7 +58,14 @@ export const CrewMemberCard = (props: UserCardProps) => {
                                 {props.nickname || props.name}&nbsp;<NameAndNickSpan>({props.name})</NameAndNickSpan>
                             </CardTitle>
                             <CardSubtitle>
-                                {CommunityBadge(props.community)}<Badge color={"success"}>{props.birthyear}또래</Badge>
+                                {CommunityBadge(props.community)}
+                                <Badge color={"success"}>
+                                    {
+                                        props.birthyear === null ? "알수없음"
+                                            :
+                                            props.birthyear <= 9 ? `0${props.birthyear}또래` : `${props.birthyear}또래`
+                                    }
+                                </Badge>
                             </CardSubtitle>
                         </Col>
                     </Row>
