@@ -37,13 +37,12 @@ const SignUpPage = (props: PageTagProps) => {
         const user = {email, name, community, birthyear, nickname};
         const isAccess = joinService.doValidation(user);
         if (isAccess) {
-            if (window.confirm("가입을 승인하시겠습니다?")) {
-                const userId = StorageUtil.session.getItem("userid");
-                const isSuccess = await joinService.join(Number(userId), user);
-                if (isSuccess) {
-                    StorageUtil.session.setItem("status", "exist");
-                    navigate("/");
-                }
+            const userId = StorageUtil.session.getItem("userid");
+            const isSuccess = await joinService.join(Number(userId), user);
+            if (isSuccess) {
+                StorageUtil.session.setItem("status", "exist");
+                alert('가입완료되었습니다.')
+                navigate("/");
             }
         }
     }
@@ -99,15 +98,16 @@ const SignUpPage = (props: PageTagProps) => {
                             </Input>
                         </FormGroup>
                         <FormGroup>
-                            <Label for="userName">
+                            <Label for="birtheyear">
                                 또래
                             </Label>
                             <Input
-                                id="userName"
-                                name="name"
+                                id="birtheyear"
+                                name="birtheyear"
                                 value={birthyear}
                                 onChange={e => setBirthyear(e.target.value)}
                                 placeholder="또래를 입력해주세요."
+                                maxlength={2}
                             />
                             <FormText>
                                 나이나 수준이 서로 비슷한 무리. ex) 90년또래 {"->"} 90

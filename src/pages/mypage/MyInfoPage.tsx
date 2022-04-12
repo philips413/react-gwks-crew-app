@@ -43,7 +43,7 @@ const MyInfoPage = (props: PageTagProps) => {
 
 
     const DoCancelJoin = () => {
-        if (window.confirm("가입을 취소하시겠습니다?😥 \n괜찮아요, 다시 가입할수 있어요")) {
+        if (window.confirm("취소하시겠습니다?")) {
             navigate("/");
         }
     };
@@ -53,11 +53,12 @@ const MyInfoPage = (props: PageTagProps) => {
         const user = {email, name, community, birthyear, nickname};
         const isAccess = joinService.doValidation(user);
         if (isAccess) {
-            if (window.confirm("수정 하시겠습니까?")) {
-                const userId = StorageUtil.session.getItem("userid");
-                joinService.join(Number(userId), user);
-                navigate("/");
-            }
+            const userId = StorageUtil.session.getItem("userid");
+            joinService.join(Number(userId), user);
+            alert('수정되었습니다.')
+            navigate("/");
+        } else {
+            return;
         }
     }
     return (
@@ -107,12 +108,12 @@ const MyInfoPage = (props: PageTagProps) => {
                             </Input>
                         </FormGroup>
                         <FormGroup>
-                            <Label for="userName">
+                            <Label for="birtheyear">
                                 또래
                             </Label>
                             <Input
-                                id="userName"
-                                name="name"
+                                id="birtheyear"
+                                name="birtheyear"
                                 value={birthyear}
                                 onChange={e => setBirthyear(e.target.value)}
                                 placeholder="또래를 입력해주세요."
