@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Badge, Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Col, Row} from "reactstrap";
 import styled from "styled-components";
 import {CommunityBadge} from "./CommunityBadgeList";
@@ -59,7 +59,14 @@ export const CrewMemberCard = (props: UserCardProps) => {
                                 <span style={{color: "grey"}}>{props.email}</span>
                             </CardSubtitle>
                             <CardText>
-                                {CommunityBadge(props.community)}<Badge color={"success"}>{props.birthyear}또래</Badge>
+                                {CommunityBadge(props.community)}
+                                <Badge color={"success"}>
+                                    {
+                                        props.birthyear === null ? "알수없음"
+                                            :
+                                            props.birthyear <= 9 ? `0${props.birthyear}또래` : `${props.birthyear}또래`
+                                    }
+                                </Badge>
                             </CardText>
                         </Col>
                     </Row>
