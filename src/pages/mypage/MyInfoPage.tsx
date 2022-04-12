@@ -48,14 +48,16 @@ const MyInfoPage = (props: PageTagProps) => {
         }
     };
 
-    const DoAgreeJoin = () => {
+    const doAgreeJoin = async () => {
         const joinService = new JoinService();
         const user = {email, name, community, birthyear, nickname};
         const isAccess = joinService.doValidation(user);
         if (isAccess) {
             const userId = StorageUtil.session.getItem("userid");
-            joinService.join(Number(userId), user);
-            alert('수정되었습니다.')
+            StorageUtil.session.setItem("req", JSON.stringify(user));
+            const result = await joinService.join(Number(userId), user);
+            StorageUtil.session.setItem("res", JSON.stringify(result))
+            alert('수정되었습니다.');
             navigate("/");
         } else {
             return;
@@ -112,6 +114,8 @@ const MyInfoPage = (props: PageTagProps) => {
                                 또래
                             </Label>
                             <Input
+                                type={"number"}
+                                maxLength={2}
                                 id="birtheyear"
                                 name="birtheyear"
                                 value={birthyear}
@@ -119,7 +123,7 @@ const MyInfoPage = (props: PageTagProps) => {
                                 placeholder="또래를 입력해주세요."
                             />
                             <FormText>
-                                나이나 수준이 서로 비슷한 무리. ex) 90년또래 {"->"} 90
+                                두 자리수 입력 ex) 1990 {"->"} 90
                             </FormText>
                         </FormGroup>
                         <FormGroup>
@@ -137,7 +141,7 @@ const MyInfoPage = (props: PageTagProps) => {
                         <div style={{"textAlign": "center", "marginTop": "50px"}}>
                             <Button onClick={e => DoCancelJoin()} style={{"width": "130px"}}> 취소 </Button>
                             &emsp;&emsp;
-                            <Button onClick={e => DoAgreeJoin()} style={{"width": "130px"}} color={"primary"}> 수정하기 </Button>
+                            <Button onClick={e => doAgreeJoin()} style={{"width": "130px"}} color={"primary"}> 수정하기 </Button>
                         </div>
                     </SignUpWrapper>
                 </div>

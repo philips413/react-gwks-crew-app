@@ -12,7 +12,6 @@ import KakaoLoginPage from './pages/login/KakaoLoginPage';
 import Test from './pages/Test';
 import SignUpPage from './pages/join/SignUpPage';
 import CrewDetailPage from './pages/crew/CrewDetailPage';
-import {StorageUtil} from './config/BrowserUtil';
 import MyInfoPage from './pages/mypage/MyInfoPage';
 
 const Wrapper = styled.div`

@@ -27,7 +27,12 @@ export default class JoinService {
 
     async join(id:number, user: User) {
         const result = await patchUserDetail(id, user);
-        return result.id !== '';
+        result.isSuccess = true;
+        if (result.id !== '') {
+            result.isSuccess = false;
+        }
+        console.log(result)
+        return result;
 
     }
 }

@@ -34,6 +34,12 @@ const MainPage = (props: PageTagProps) => {
         navigate("/join");
     }
 
+    const debugMyPage = () => {
+        const req = StorageUtil.session.getItem("req");
+        const res = StorageUtil.session.getItem("res");
+        alert(`${req}\n================\n${res}`)
+    }
+
     return (
         <>
             <Header title={props.title} />
@@ -86,7 +92,7 @@ const MainPage = (props: PageTagProps) => {
                     </Card>
                 </div>
                 <div style={{"float": "right", "marginTop": "5px", "bottom": "50px"}}>
-                    <p style={{"fontSize":"11px", "color": "#ced4da", "fontStyle": "italic"}}>Made By. Street Coding Fighter Crew</p>
+                    <p onClick={e => debugMyPage()} style={{"fontSize":"11px", "color": "#ced4da", "fontStyle": "italic"}}>Made By. Street Coding Fighter Crew</p>
                 </div>
             </main>
         </>
