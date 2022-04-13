@@ -37,16 +37,16 @@ const CrewDetailPage = (props: PageTagProps) => {
         community: 0
     });
     const [crewMember, setCrewMember] = useState([] as any);
-    const [hasMemeber, setHasMember] = useState(false);
+    const [isMemeber, setIsMemeber] = useState(false);
     useEffect(()  => {
         const fetchData = async () => {
             const data = await getCrewDetail(Number(params.id));
             const resultCrewMaster = await getUserDetail(data.manager);
 
             const userid = StorageUtil.session.getId();
-            const findUser = data.members.find((item: any) => item == userid);
-            if (findUser !== '') {
-                setHasMember(true);
+            const findUser = data.members.filter((item: any) => item == userid);
+            if (findUser.length > 0) {
+                setIsMemeber(true);
             }
             setCrew(data);
             setCrewMaster(resultCrewMaster);
@@ -176,14 +176,19 @@ const CrewDetailPage = (props: PageTagProps) => {
                                     <td style={{"fontWeight": "bold"}}>참여 현황</td>
                                     <td>{crew.members.length} / {crew.member_limit}</td>
                                 </tr>
-                                <tr key={"openChat"}>
-                                    <td>참여채팅방</td>
-                                    <td>
-                                        <Button color={"primary"} size={"sm"} disabled={crew.kakao_room === null ? true : false} onClick={e=> joinRoom(crew.kakao_room)}>
-                                            {crew.kakao_room === null ? "개설중" : "참여하기"}
-                                        </Button>
-                                    </td>
-                                </tr>
+                                {
+                                    isMemeber ?
+                                        <tr key={"openChat"}>
+                                            <td>참여채팅방</td>
+                                            <td>
+                                                <Button color={"primary"} size={"sm"} disabled={crew.kakao_room === null ? true : false} onClick={e=> joinRoom(crew.kakao_room)}>
+                                                    {crew.kakao_room === null ? "개설중" : "참여하기"}
+                                                </Button>
+                                            </td>
+                                        </tr>
+                                    :
+                                        ''
+                                }
                             </tbody>
                         </table>
                     </CardBody>
