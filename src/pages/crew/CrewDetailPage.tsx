@@ -88,6 +88,15 @@ const CrewDetailPage = (props: PageTagProps) => {
     const hasMember = (members: [any]) => {
         const userid = StorageUtil.session.getId();
         let filterMember = members.filter(item => item === Number(userid));
+
+        if (filterMember.length > 0) {
+            return (
+                <Button color={"danger"} block onClick={e => exitCrew(crew.id)}>
+                    <TiUserAdd />&nbsp;탈퇴하기
+                </Button>
+            )
+        }
+
         if (crew.members.length >= crew.member_limit) {
             return (
                 <Button color={"secondary"} block onClick={e => joinCrew(crew.id)} disabled>
@@ -103,21 +112,9 @@ const CrewDetailPage = (props: PageTagProps) => {
                 </Button>
             )
         }
-        return (
-            <Button color={"danger"} block onClick={e => exitCrew(crew.id)}>
-                <TiUserAdd />&nbsp;탈퇴하기
-            </Button>
-        )
     }
 
-    const joinRoom = (roomUrl: string) => {
-        if (roomUrl === null) {
-            alert('크루장님이 개설준비중입니다. ');
-        } else {
-            window.open(roomUrl);
-        }
-    }
-
+    const joinRoom = (roomUrl: string) => { window.open(roomUrl) }
     return (
         <div>
             <Header title={props.title} />
@@ -182,8 +179,8 @@ const CrewDetailPage = (props: PageTagProps) => {
                                 <tr key={"openChat"}>
                                     <td>참여채팅방</td>
                                     <td>
-                                        <Button disabled={crew.kakao_room === null ? true : false} onClick={e=> joinRoom(crew.kakao_room)}>
-                                            {crew.kakao_room === null ? true : false}
+                                        <Button color={"primary"} size={"sm"} disabled={crew.kakao_room === null ? true : false} onClick={e=> joinRoom(crew.kakao_room)}>
+                                            {crew.kakao_room === null ? "개설중" : "참여하기"}
                                         </Button>
                                     </td>
                                 </tr>
@@ -206,10 +203,10 @@ const CrewDetailPage = (props: PageTagProps) => {
                             birthyear={crewMaster.birthyear}
                         />
                         {
-                            crew.members_detail.map((user: any) => {
+                            crew.members_detail.map((user: any, index: number) => {
                                 if (user.id !== crewMaster.id) {
                                     const {profile_image, name, nickname, community, birthyear} = user;
-                                    return (<CrewMemberCard isMaster={false} profile_image={profile_image} name={name} nickname={nickname} community={community} birthyear={birthyear} />)
+                                    return (<CrewMemberCard key={`crewMember${index}`} isMaster={false} profile_image={profile_image} name={name} nickname={nickname} community={community} birthyear={birthyear} />)
                                 }
                             })
                         }

@@ -53,7 +53,7 @@ export const CrewMemberCard = (props: UserCardProps) => {
                         </Col>
                         <Col xs={9}>
                             <CardTitle>
-                                {props.isMaster ? <Badge color={"warning"}><TiStarFullOutline /></Badge> : ''}
+                                {props.isMaster ? <span style={{color: "#ffc107"}}><TiStarFullOutline /></span> : ''}
                                 &nbsp;
                                 {props.nickname || props.name}&nbsp;<NameAndNickSpan>({props.name})</NameAndNickSpan>
                             </CardTitle>

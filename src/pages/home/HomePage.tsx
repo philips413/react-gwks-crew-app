@@ -76,7 +76,7 @@ const GetCardList = (list: any) => {
                             {item.meeting_type ? (<HashSpan color={"success"}>#{item.meeting_type}</HashSpan>) : ''}&nbsp;
                             {item.member_limit ? (<HashSpan color={"success"}>#선착순{item.member_limit}명</HashSpan>) : ''}
                         </CardText>
-                        <p>{CommunityBadgeList(item.community_limit)}</p>
+                        <p style={{marginBottom: "5px"}}>{CommunityBadgeList(item.community_limit)}</p>
                     </CardBody>
                 </CrewCart>
             </React.Fragment>
