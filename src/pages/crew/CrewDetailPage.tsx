@@ -23,9 +23,11 @@ const CrewDetailPage = (props: PageTagProps) => {
     const params = useParams();
     const [crew, setCrew] = useState({
         members: [],
+        members_detail: [],
         community_limit: []
     } as any);
     const [crewMaster, setCrewMaster] = useState({
+        id: 0,
         profile_image: '',
         email: '',
         nickname: '',
@@ -38,16 +40,8 @@ const CrewDetailPage = (props: PageTagProps) => {
         const fetchData = async () => {
             const data = await getCrewDetail(Number(params.id));
             const resultCrewMaster = await getUserDetail(data.manager);
-            let _crewMember:any[] = [];
-            for(let id of data.members) {
-                if (resultCrewMaster.id !== id) {
-                    const user = await getUserDetail(id);
-                    _crewMember.push(user);
-                }
-            }
             setCrew(data);
             setCrewMaster(resultCrewMaster);
-            setCrewMember(_crewMember);
         }
         fetchData();
     }, []);
@@ -176,9 +170,11 @@ const CrewDetailPage = (props: PageTagProps) => {
                             birthyear={crewMaster.birthyear}
                         />
                         {
-                            crewMember.map((user: any) => {
-                                const {profile_image, name, nickname, community, birthyear} = user;
-                                return (<CrewMemberCard isMaster={false} profile_image={profile_image} name={name} nickname={nickname} community={community} birthyear={birthyear} />)
+                            crew.members_detail.map((user: any) => {
+                                if (user.id !== crewMaster.id) {
+                                    const {profile_image, name, nickname, community, birthyear} = user;
+                                    return (<CrewMemberCard isMaster={false} profile_image={profile_image} name={name} nickname={nickname} community={community} birthyear={birthyear} />)
+                                }
                             })
                         }
                     </CardBody>
