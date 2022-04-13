@@ -24,7 +24,8 @@ const CrewDetailPage = (props: PageTagProps) => {
     const [crew, setCrew] = useState({
         members: [],
         members_detail: [],
-        community_limit: []
+        community_limit: [],
+        member_limit: 0
     } as any);
     const [crewMaster, setCrewMaster] = useState({
         id: 0,
@@ -80,10 +81,18 @@ const CrewDetailPage = (props: PageTagProps) => {
     const hasMember = (members: [any]) => {
         const userid = StorageUtil.session.getId();
         let filterMember = members.filter(item => item === Number(userid));
+        if (crew.members.length >= crew.member_limit) {
+            return (
+                <Button color={"secondary"} block onClick={e => joinCrew(crew.id)} disabled>
+                    <TiUserAdd />&nbsp;인원 마감&nbsp;({crew.members.length}/{crew.member_limit})
+                </Button>
+            )
+        }
+
         if (filterMember.length <= 0 || userid === '') {
             return (
                 <Button color={"primary"} block onClick={e => joinCrew(crew.id)}>
-                    <TiUserAdd />&nbsp;참가하기
+                    <TiUserAdd />&nbsp;참가하기&nbsp;({crew.members.length}/{crew.member_limit})
                 </Button>
             )
         }
@@ -150,6 +159,10 @@ const CrewDetailPage = (props: PageTagProps) => {
                                 <tr>
                                     <td style={{"fontWeight": "bold"}}>모임 형식</td>
                                     <td>{crew.meeting_type}</td>
+                                </tr>
+                                <tr>
+                                    <td style={{"fontWeight": "bold"}}>참여 현황</td>
+                                    <td>{crew.members.length} / {crew.member_limit}</td>
                                 </tr>
                             </tbody>
                         </table>
