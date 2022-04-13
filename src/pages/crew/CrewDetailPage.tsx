@@ -37,10 +37,17 @@ const CrewDetailPage = (props: PageTagProps) => {
         community: 0
     });
     const [crewMember, setCrewMember] = useState([] as any);
+    const [hasMemeber, setHasMember] = useState(false);
     useEffect(()  => {
         const fetchData = async () => {
             const data = await getCrewDetail(Number(params.id));
             const resultCrewMaster = await getUserDetail(data.manager);
+
+            const userid = StorageUtil.session.getId();
+            const findUser = data.members.find((item: any) => item == userid);
+            if (findUser !== '') {
+                setHasMember(true);
+            }
             setCrew(data);
             setCrewMaster(resultCrewMaster);
         }
@@ -103,6 +110,14 @@ const CrewDetailPage = (props: PageTagProps) => {
         )
     }
 
+    const joinRoom = (roomUrl: string) => {
+        if (roomUrl === null) {
+            alert('크루장님이 개설준비중입니다. ');
+        } else {
+            window.open(roomUrl);
+        }
+    }
+
     return (
         <div>
             <Header title={props.title} />
@@ -163,6 +178,14 @@ const CrewDetailPage = (props: PageTagProps) => {
                                 <tr>
                                     <td style={{"fontWeight": "bold"}}>참여 현황</td>
                                     <td>{crew.members.length} / {crew.member_limit}</td>
+                                </tr>
+                                <tr key={"openChat"}>
+                                    <td>참여채팅방</td>
+                                    <td>
+                                        <Button disabled={crew.kakao_room === null ? true : false} onClick={e=> joinRoom(crew.kakao_room)}>
+                                            {crew.kakao_room === null ? true : false}
+                                        </Button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
