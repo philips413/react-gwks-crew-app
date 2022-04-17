@@ -26,7 +26,6 @@ const MainPage = (props: PageTagProps) => {
     const [userInfo, setUserInfo] = useState({} as any);
     const userId = StorageUtil.session.getId();
     const [crew, setCrew] = useState([] as any);
-    // const [findCrew,setFindCrew] = useState([] as any);
     const findCrew: any[] = [];
 
     useEffect(() => {
@@ -54,14 +53,7 @@ const MainPage = (props: PageTagProps) => {
         navigate("/join");
     }
 
-    const debugMyPage = () => {
-        const req = StorageUtil.session.getItem("req");
-        const res = StorageUtil.session.getItem("res");
-        alert(`${req}\n================\n${res}`)
-    }
-
     const GetCardList = (crew: any) => {
-        console.log(crew);
         for(const crewMember of crew){
             const filterMembers = crewMember.members.filter((item: any) => item === Number(userId));
             if(filterMembers.length > 0){
@@ -74,7 +66,7 @@ const MainPage = (props: PageTagProps) => {
                 const{id, name, abstract, image_thumbnail, meeting_type, meeting_time, meeting_limit, member_limit} = crewList;
                 return (
                     <CrewCard
-                        //key={`crew${index}`}
+                        key={`crew${index}`}
                         id={id}
                         name={name}
                         abstract={abstract}
@@ -150,7 +142,7 @@ const MainPage = (props: PageTagProps) => {
                     </Card>
                 </div>
                 <div style={{"float": "right", "marginTop": "5px", "bottom": "50px"}}>
-                    <p onClick={e => debugMyPage()} style={{"fontSize":"11px", "color": "#ced4da", "fontStyle": "italic"}}>Made By. Street Coding Fighter Crew</p>
+                    <p style={{"fontSize":"11px", "color": "#ced4da", "fontStyle": "italic"}}>Made By. Street Coding Fighter Crew</p>
                 </div>
             </main>
         </>

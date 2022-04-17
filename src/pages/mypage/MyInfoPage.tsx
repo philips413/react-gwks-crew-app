@@ -54,9 +54,7 @@ const MyInfoPage = (props: PageTagProps) => {
         const isAccess = joinService.doValidation(user);
         if (isAccess) {
             const userId = StorageUtil.session.getItem("userid");
-            StorageUtil.session.setItem("req", JSON.stringify(user));
             const result = await joinService.join(Number(userId), user);
-            StorageUtil.session.setItem("res", JSON.stringify(result))
             alert('수정되었습니다.');
             navigate("/");
         } else {
