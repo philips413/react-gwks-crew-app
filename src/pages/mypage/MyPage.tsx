@@ -20,15 +20,6 @@ const FindCommunity = (code: number) => {
     return (CommunityCode.findById(code).text);
 }
 
-// const getCardList = (list: any) => {
-//     const vaildCrewMember = (members: []) => {
-//         const userId = StorageUtil.session.getId();
-//         const filterMembers = members.filter(item => item === Number(userId));
-//         if (filterMembers.length > 0) {
-//         }
-//     }
-// }
-
 const MainPage = (props: PageTagProps) => {
     const navigate = useNavigate();
     const status = StorageUtil.session.getItem("status");
@@ -70,7 +61,6 @@ const MainPage = (props: PageTagProps) => {
     }
 
     const GetCardList = (crew: any) => {
-        // const findCrew = [];
         console.log(crew);
         for(const crewMember of crew){
             const filterMembers = crewMember.members.filter((item: any) => item === Number(userId));
@@ -78,21 +68,13 @@ const MainPage = (props: PageTagProps) => {
                 findCrew.push(crewMember);
             }
         }
-        const countCrew = findCrew.length;
-        console.log("=========START==========");
-        console.log(countCrew);
-        console.log(findCrew);
 
         if(findCrew.length > 0){
-            return
-            findCrew.map((crewList: any, countCrew:number) => {
-                console.log(crewList);
-                // return <p key={countCrew}> 테스트 </p>
+            return findCrew.map((crewList: any, index:number) => {
                 const{id, name, abstract, image_thumbnail, meeting_type, meeting_time, meeting_limit, member_limit} = crewList;
-                console.log(name);
                 return (
                     <CrewCard
-                        key={`crew${countCrew}`}
+                        //key={`crew${index}`}
                         id={id}
                         name={name}
                         abstract={abstract}
