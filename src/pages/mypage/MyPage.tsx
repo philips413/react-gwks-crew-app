@@ -13,31 +13,30 @@ import NoImage from "../../assets/img/no-image-found-360x250-1-300x208.png";
 import CommunityBadgeList from "../../components/CommunityBadgeList";
 import CrewCard from "../../components/CrewCard";
 import CrewMemberCard from "../../components/CrewMemberCard";
+import {find} from "styled-components/test-utils";
 
 
 const FindCommunity = (code: number) => {
     return (CommunityCode.findById(code).text);
 }
 
-const getCardList = (list: any) => {
-    const vaildCrewMember = (members: []) => {
-        const userId = StorageUtil.session.getId();
-        const filterMembers = members.filter(item => item === Number(userId));
-        if (filterMembers.length > 0) {
-        }
-    }
-}
+// const getCardList = (list: any) => {
+//     const vaildCrewMember = (members: []) => {
+//         const userId = StorageUtil.session.getId();
+//         const filterMembers = members.filter(item => item === Number(userId));
+//         if (filterMembers.length > 0) {
+//         }
+//     }
+// }
 
 const MainPage = (props: PageTagProps) => {
     const navigate = useNavigate();
     const status = StorageUtil.session.getItem("status");
     const [userInfo, setUserInfo] = useState({} as any);
     const userId = StorageUtil.session.getId();
-    const [crew, setCrew] = useState({
-        id: 0,
-        name: [],
-        members: [],
-    } as any);
+    const [crew, setCrew] = useState([] as any);
+    // const [findCrew,setFindCrew] = useState([] as any);
+    const findCrew: any[] = [];
 
     useEffect(() => {
         const accessToken = StorageUtil.session.getAccessToken()
@@ -71,22 +70,43 @@ const MainPage = (props: PageTagProps) => {
     }
 
     const GetCardList = (crew: any) => {
+        // const findCrew = [];
         console.log(crew);
-        let filterMembers = crew.filter((item: any) => item === Number(userId));
-        if (filterMembers.length > 0) {
-            return ( <CrewCard
-                id={crew.id}
-                name={crew.name}
-                abstract={crew.abstract}
-                image_thumbnail={crew.image_thumbnail}
-                meeting_type={crew.meeting_type}
-                meeting_time={crew.meeting_time}
-                meeting_limit={crew.meeting_limit}
-                member_limit={crew.member_limit}
-            />)
+        for(const crewMember of crew){
+            const filterMembers = crewMember.members.filter((item: any) => item === Number(userId));
+            if(filterMembers.length > 0){
+                findCrew.push(crewMember);
+            }
         }
-        else return <b> 아직 가입한 크루가 없네요 :( </b>
+        const countCrew = findCrew.length;
+        console.log("=========START==========");
+        console.log(countCrew);
+        console.log(findCrew);
+
+        if(findCrew.length > 0){
+            return
+            findCrew.map((crewList: any, countCrew:number) => {
+                console.log(crewList);
+                // return <p key={countCrew}> 테스트 </p>
+                const{id, name, abstract, image_thumbnail, meeting_type, meeting_time, meeting_limit, member_limit} = crewList;
+                console.log(name);
+                return (
+                    <CrewCard
+                        key={`crew${countCrew}`}
+                        id={id}
+                        name={name}
+                        abstract={abstract}
+                        image_thumbnail={image_thumbnail}
+                        meeting_type={meeting_type}
+                        meeting_time={meeting_time}
+                        meeting_limit={meeting_limit}
+                        member_limit={member_limit}
+                    />
+                )
+            });
+        }else return <b> 아직 가입한 크루가 없네요 :( </b>
     }
+
 
     return (
         <>

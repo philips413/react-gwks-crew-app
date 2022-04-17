@@ -32,12 +32,9 @@ const HashSpan = styled.span`
 export const CrewCard = (props: CrewCardProps) => {
     return (
         <React.Fragment>
-            <CrewCart key={`card${props.id}`}>
+            <CrewCart>
                 <CardBody>
-                    <Row
-                        key={`cardRow${props.id}`}
-                        xs={2}
-                    >
+                    <Row>
                         <Col xs={3}>
                             <img
                                 alt={""}
