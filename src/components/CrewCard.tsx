@@ -39,7 +39,7 @@ export const CrewCard = (props: CrewCardProps) => {
                             <img
                                 alt={""}
                                 src={props.image_thumbnail || NoImage}
-                                style={{"width": "80px", "height": "80px"}}
+                                style={{"width": "70px", "height": "70px"}}
                             />
                         </Col>
                         <Col xs={9}>
