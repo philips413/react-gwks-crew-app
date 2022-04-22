@@ -26,15 +26,46 @@ const CrewListPage = (props: PageTagProps) => {
     const [crewList, setCrewList] = useState([] as any);
     const [selectCrewList, setSelectCrewList] = useState([] as any);
     const [activeButton, setActiveButton] = useState(-1);
+    const [community1, setCommunity1] = useState([] as any);
+    const [community2, setCommunity2] = useState([] as any);
+    const [community3, setCommunity3] = useState([] as any);
+    const [communityBR, setCommunityBR] = useState([] as any);
+
 
     useEffect(() => {
         const fetchData = async () => {
             const crewList = await getUserList();
+            for(const crew of crewList){
+                if(crew.community === 0){
+                    community1.push(crew);
+                }
+                else if(crew.community === 1){
+                    community2.push(crew);
+                }
+                else if(crew.community === 2){
+                    community3.push(crew);
+                }
+                else if(crew.community === 3){
+                    communityBR.push(crew);
+                }
+            }
             setCrewList(crewList);
             setSelectCrewList(crewList);
+            setCommunity1(community1);
+            setCommunity2(community2);
+            setCommunity3(community3);
+            setCommunityBR(communityBR);
+
+            console.log(community1.length);
+            console.log(community2.length);
+            console.log(community3.length);
+            console.log(communityBR.length);
+
         }
         fetchData();
+
     }, []);
+
 
     const selectCommunityList = (communityCode: number, list: any) => {
         let tmpCommunityList = [] as any;
@@ -57,11 +88,11 @@ const CrewListPage = (props: PageTagProps) => {
             <Header title={props.title} />
             <main>
                 <SelCommunity>
-                    <Button color={activeButton === -1 ? "secondary" : "outline-secondary"} block onClick={e => selectCommunityList(-1, crewList)}> 전체 </Button>&nbsp;
-                    <Button color={activeButton === 0 ? "secondary" : "outline-secondary"} block onClick={e => selectCommunityList(0, crewList)}> 1청년부 </Button>&nbsp;
-                    <Button color={activeButton === 1 ? "secondary" : "outline-secondary"} block onClick={e => selectCommunityList(1, crewList)}> 2청년부 </Button>&nbsp;
-                    <Button color={activeButton === 2 ? "secondary" : "outline-secondary"} block onClick={e => selectCommunityList(2, crewList)}> 3청년부 </Button>&nbsp;
-                    <Button color={activeButton === 3 ? "secondary" : "outline-secondary"} block onClick={e => selectCommunityList(3, crewList)}> 신혼BR </Button>
+                    <Button color={activeButton === -1 ? "secondary" : "outline-secondary"} block onClick={e => selectCommunityList(-1, crewList)}> 전체({crewList.length}) </Button>&nbsp;
+                    <Button color={activeButton === 0 ? "secondary" : "outline-secondary"} block onClick={e => selectCommunityList(0, crewList)}> 1청년부({community1.length}) </Button>&nbsp;
+                    <Button color={activeButton === 1 ? "secondary" : "outline-secondary"} block onClick={e => selectCommunityList(1, crewList)}> 2청년부({community2.length}) </Button>&nbsp;
+                    <Button color={activeButton === 2 ? "secondary" : "outline-secondary"} block onClick={e => selectCommunityList(2, crewList)}> 3청년부({community3.length}) </Button>&nbsp;
+                    <Button color={activeButton === 3 ? "secondary" : "outline-secondary"} block onClick={e => selectCommunityList(3, crewList)}> 신혼BR({communityBR.length}) </Button>
                 </SelCommunity>
                 {selectCrewList.map((item: any, index: number) => {
                     return (
